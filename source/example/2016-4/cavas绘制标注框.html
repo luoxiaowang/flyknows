@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <script>
+    $(function() {
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        var img = new Image();
+        img.onload = function() {
+            //canvas.width = this.width;
+            //canvas.height = this.height
+            context.drawImage(this, 0, 0);
+        };
+        img.src = "http://pic.newssc.org/upload/news/20160403/1459681575327.jpg";
+
+        var paint = false;
+        var mouseX = 0;
+        var mouseY = 0;
+        
+        //鼠标按下
+        $('#myCanvas').mousedown(function(e) {
+            mouseX = e.pageX - this.offsetLeft;
+            mouseY = e.pageY - this.offsetTop;
+
+            paint = true;
+        });
+
+        //鼠标移动
+        $('#myCanvas').mousemove(function(e) {
+            if (paint) { //是不是按下了鼠标
+            	context.clearRect(0,0,canvas.width,canvas.height);
+            	context.drawImage(img, 0, 0);
+            	context.strokeStyle="red";  //边框颜色
+		        context.linewidth=10;
+                context.strokeRect(mouseX,mouseY,e.pageX - this.offsetLeft - mouseX,e.pageY - this.offsetTop - mouseY);
+            }
+        });
+
+        //鼠标松开
+        $('#myCanvas').mouseup(function(e) {
+            paint = false;
+        });
+
+        //鼠标移开事件
+        $('#myCanvas').mouseleave(function(e) {
+            paint = false;
+        });
+
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+title: "侧边栏效果"
+date: 2015-03-10 08:58:22
+categories: 前端技术
+tags: [前端技术]
+---
+本文主要是介绍一下网页中侧边栏效果的几种实现的方式，顺便也总结一下其中遇到的一些知识点。
+<!--more-->
+### 前言
+网页的侧边栏大家一定都见过，在我们浏览网页的时候，侧边栏有时候会以广告的形式出现，又或者是以导航栏菜单的形式出现。它们都是随着鼠标滚轮的运动而运动，始终出现在我们的侧边。例如bootstrap网站上的这种侧边栏菜单的效果：
+![](/image/2015-3/2.jpg "Optional title")
+那么我们今天也来简单的实现一下这样的效果。
+
+### CSS布局实现侧边栏
+菜单一直固定在页面的某个地方，让人最快想到的就是固定布局，随着页面的移动而移动。
+```css
+<style>
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position:fixed;
+            top: 50%;
+            right: 0px;
+            margin-top: -50px;
+        }
+    </style>
+```
+用这样的一种方式我们就可以实现这样的效果：
+[CSS实现侧边栏效果](/example/2015-3/侧边栏广告2.html)
+但是很明显，我们会发现fixed布局，在IE6下面是不支持的，因此如果要考虑兼容性的问题的话，可能这样的方式并不能够完全适用,那么我们只能在去想一下其他的方法。
+
+### clientHeight、offsetHeight和scrollHeight的区别
+下面我们需要用js的方式去实现上面的那个效果，但是在这之前，我们需要做一些知识储备，区分了以上几个关键词之后，才能开始做接下来的事情。下面我会以绘图的形式展示一下这它们的区别：
+offset：offsetTop以及offsetLeft它是以包含它的父亲元素，也就是offsetParent为基准，获取到相应的偏移量。而offsetHeight和offfsetWidth是指的是元素的宽高，包括边框和内边距在内。offsetHeight = clientHeight + 滚动条 + 边框。 
+![](/image/2015-3/3.jpg "Optional title")
+client：clientHeight和clientWidth指的是元素内容及内边距所占据的大小，不含边框。document客户区的大小就是元素内部的空间大小，因此滚动条占用的空间不计算在内,常用来确定浏览器视口(也就是可视区)的大小。
+![](/image/2015-3/4.jpg "Optional title")
+scroll：scrollWidth和scrollHeight代表整个页面，包括滚动条隐藏了的区域的大小。scrollTop和scrollLeft是指滚动条隐藏了的上面和左边的大小，分别是页面的滚动条距离左边的高度，以及页面的滚动条距离顶部的高度。
+![](/image/2015-3/5.jpg "Optional title")
+
+### js实现侧边栏效果
+这里我们需要用一张图来看下js实现的原理或者说计算方式：
+![](/image/2015-3/6.jpg "Optional title")
+我们的侧边栏位于可视区右侧的中间位置，为此我们当拉动滚动条的时候，可以通过改变侧边栏的top值实现定位，那么这个top值又是多少呢？从上图中可以看出来，top = scrollTop+（可视区的clientHeight-侧边栏的高度）/2 ，这个top值就是侧边栏距离页面最顶部的高度，也就是div的新的offsetTop值。
+```css
+<style>
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position:absolute;
+            right: 0;
+        }
+    </style>
+```
+样式设置为绝对定位,right为0,居右显示。
+```javascript
+<script>
+        //ie6下用js实现    //ie6以上用fixed定位
+        window.onresize = window.onload = window.onscroll = function(){
+            var oDiv = document.getElementById('div1');
+            //上方滚动条隐藏的区域
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            //（可视区的高度-div元素的高度）/2 = div块居中需要距离上方的高度
+            var t = (document.documentElement.clientHeight-oDiv.offsetHeight)/2;
+            //上方隐藏区域的高度+页面中div居中距离上方的高度=新的top值（offsetTop）
+            oDiv.style.top = scrollTop + t + "px";
+        }
+    </script>
+```
+这样一种方式去实现可以兼容Ie浏览器，但是不知道有没有发现，在滚动的时候我们可以看到侧边栏有点闪烁的现象。因此我们可以使用一个运动的框架move.js去实现它。
+[js实现侧边栏效果](/example/2015-3/侧边栏广告.html)
+
+### move.js实现侧边栏效果
+对于这款框架之前有吐槽过，但是不得不说，用起来相对来说比较方便，不用考虑太多js运动等复杂的操作，改动的地方也不大，只是在运动这块将之前用top去改变值换成了通过move.js这样的框架去实现。
+```javascript
+<script src="js/move.js"></script>
+<script>
+
+    //ie6下用js实现    //ie6以上用fixed定位
+     window.onresize = window.onload = window.onscroll = function(){
+     var oDiv = document.getElementById('div1');
+     //上方滚动条隐藏的区域
+     var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+     //（可视区的高度-div元素的高度）/2 = div块居中需要距离上方的高度
+     var t = (document.documentElement.clientHeight-oDiv.offsetHeight)/2;
+     //上方隐藏区域的高度+页面中div居中距离上方的高度=新的top值（offsetTop）
+     //            oDiv.style.top = scrollTop + t + "px";
+         move('#div1').set('top', scrollTop + t + "px").end();
+     }
+
+</script>
+```
+[move.js实现侧边栏效果](/example/2015-3/侧边栏广告3.html)
+这样的话，滚动的效果看起来平滑多了。
+
+### 结尾
+我们一共介绍了3种如何实现侧边栏的方式，同时也介绍了clientHeight、offsetHeight和scrollHeight的区别，大家可以根据自己的需求去寻找相应的实现方法。

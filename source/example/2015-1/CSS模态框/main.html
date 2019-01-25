@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CSS模态框</title>
+    <style>
+    body {
+        margin: 0;
+    }
+    /* 
+body< html < 文档
+ */
+    
+    body,
+    html {
+        height: 100%;
+    }
+    /**
+     * 模态层
+     */
+    .floats {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        display: none;
+    }
+    .alert {
+        width: 400px;
+        height: 200px;
+        background: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -102px;
+        margin-left: -202px;
+        display: none;
+    }
+    #moduleConfirm {
+        margin-left: 20px;
+    }
+    .fatherAlert{
+    	width: 420px;
+        height: 220px;
+        background: #8080C0;
+        position: absolute;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        top: 50%;
+        left: 50%;
+        margin-top: -112px;
+        margin-left: -212px;
+        display: none;
+        border-radius: 5px;
+    }
+    #closeConfirm{
+    	position: absolute;
+    	top: 50%;
+    	left: 50%;
+    }
+    /* 
+标准   不透明度  opacity:0~1;
+IE私有  filter:alpha(opacity=0~100);
+
+ */
+    </style>
+
+    <script>
+    window.onload = function() {
+        var moduleConfirm = document.getElementById("moduleConfirm");
+        var floats = document.getElementsByClassName("floats")[0];
+        var alert = document.getElementsByClassName("alert")[0];
+        var fatherAlert = document.getElementsByClassName("fatherAlert")[0];
+        moduleConfirm.onclick = function() {
+            floats.style.display = "block";
+            alert.style.display = "block";
+            fatherAlert.style.display = "block";
+        }
+        closeConfirm.onclick = function() {
+            floats.style.display = "none";
+            alert.style.display = "none";
+            fatherAlert.style.display = "none";
+        }
+    }
+    </script>
+</head>
+
+<body>
+
+    内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/> 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+    <br/>
+    <br/>
+    <input type="submit" name="" value="模态框" id="moduleConfirm">
+
+    <div class="floats"></div>
+    <div class="fatherAlert">
+    </div>
+    <div class="alert">
+            <input type="submit" name="" value="关闭" id="closeConfirm">
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+title: "定时任务"
+date: 2018-11-5 23:14:10
+categories: nodejs
+tags: [nodejs]
+---
+本文主要介绍关于系统定时任务的创建和服务自启，以及基于nodejs下的实现方式。
+<!--more-->
+### 定时任务
+如果我们希望实现一个定时任务，例如在每天凌晨7点的时候执行某段脚本，实现的方式有好多种，今天我们主要介绍一下如何通过系统中的crontab以及nodejs的方式分别来实现，这里我们也只会介绍如何去使用，如果希望深入学习，大家还是自行去查找资料。
+
+#### crontab
+首先我们可以进入系统`/etc`目录下查看有没有crontab这个文件，如果没有，那么我们可以先新建这样一个文件：
+
+```shell
+touch crontab
+```
+
+然后在任何一个目录下执行命令，我们可以进行crontab的定时任务的编辑：
+
+```shell
+crontab -e
+```
+
+这里我们会进入到vim模式下，编辑定时任务的规则:
+
+```shell
+7 * * * * /usr/local/bin/node /Users/luoxiao/Desktop/wang/ttt/syncToMysql.js
+```
+
+这里指的是我们在每个小时零7分钟的时候，都会通过node执行syncToMysql.js这个脚本。编辑完成之后我们通过`:wq`进行保存。系统会自动安装这个crontab定时任务。当然之后你也可以删除或者查看它：
+
+```shell
+crontab -r 删除当前定时任务
+crontab -l 查找是否存在定时任务
+```
+
+这种方式在linux和mac下都可以使用。这是基于系统自身的方式去做的，同时我们也可以使用node的定时任务去做。
+
+#### node-schedule
+首先我们需要通过npm安装一下node-schedule这个包的依赖，接下来就可以监听这个job了，它的规则配置和crontab的配置有些不同，这个要注意区分。
+
+```javascript
+var fs = require('fs');
+var schedule = require('node-schedule');
+var runner = require("./syncToMysql");
+
+function scheduleCronstyle(){
+    schedule.scheduleJob('0 0 7 * * *', function() {
+      runner();
+    });
+}
+
+scheduleCronstyle();
+```
+
+通过node的方式运行的定时任务我们需要为它创建一个守护进程，这里我们可以使用pm2来实现。
+
+```shell
+pm2 start cron.js
+pm2 list
+pm2 delete cron.js
+pm2 logs
+```
+
+### 开机自启
+linux中，我们可以编辑`/etc/rc.local`文件，在里面编写你需要开机后执行的shell脚本任务：
+
+```shell
+# 后台服务
+cd /project/toolchain-onlinebugauto/server
+sudo ./getJiraData2Mysql.py &
+sudo gunicorn -w 5 -t 30 -b :8089 server:application &
+sleep 1
+
+exit
+```
+
+当然使用nodejs的pm2也可以实现开机自启：
+
+```shell
+pm2 startup
+pm2 save
+```
+
+使用nodejs的方式会更加简单一些，其他的方式会存在一些路径或者权限的问题，比较麻烦一点。当然如果你使用的是其他语言的话，可以用这种方式去做。

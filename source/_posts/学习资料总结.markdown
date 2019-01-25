@@ -1,0 +1,39 @@
+title: "学习资料总结"
+date: 2016-06-30 23:23:10
+categories: 乱七八糟
+tags: [乱七八糟]
+---
+﻿学习技术的过程中一些积累以及相关资料。
+<!--more-->
+最近又接触了不少的技术框架和知识点，发现自己的总结能力真的有点偏弱，没办法像很多人那样，技术文章写的洋洋洒洒，只能慢慢的适应了，希望能有更好的文笔。本文的目的是为了记录下自己在学习技术的过程中参考的一些资料和学习的过程。方便日后进行回顾和知识点的查阅，也便于更好的复习和总结。感觉学习资料太零散，自己随手就扔了，没有一个好的习惯。
+
+### Vue
+* [vue构建单页最佳实例](https://github.com/MeCKodo/vue-tutorial)   *(这个demo真心不错，最好mark下来，照着来一发)*
+* [vue-router](http://www.cnblogs.com/axl234/p/5899952.html)   *(挺全面介绍的一篇文章)*
+
+### React
+* [官方实例](https://github.com/reactjs/redux/tree/master/examples) *(里面例子很多，很全)*
+
+### Node
+* [Node入门](http://www.nodebeginner.org/index-zh-cn.html) **[done]**
+* [七天学会NodeJS](http://nqdeng.github.io/7-days-nodejs/) **[done]**
+* [一起学 Node.js+express](https://github.com/nswbmw/N-blog)
+* [使用 Koa + MongoDB + Redis 搭建论坛系统](https://github.com/nswbmw/N-club)
+
+### webpack
+* [webpack小书](https://fakefish.github.io/react-webpack-cookbook/) **[done]**
+
+### promise
+* [开源 Promise 迷你书](http://liubin.org/promises-book/)
+* [promise进阶](http://fex.baidu.com/blog/2015/07/we-have-a-problem-with-promises/)
+
+### Javascript
+* [ECMAScript 6 入门](http://es6.ruanyifeng.com/#README)
+
+### CSS
+* [Flexbox你需要知道的一切](https://www.w3cplus.com/css3/understanding-flexbox-everything-you-need-to-know.html?from=message&isappinstalled=0)
+
+### blog
+* [阮一峰](http://www.ruanyifeng.com/blog/)
+* [二哲](http://www.meckodo.com/#!/) *(vue教程不错)*
+* [张鑫旭](http://www.zhangxinxu.com/wordpress/)

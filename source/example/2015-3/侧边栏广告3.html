@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <style>
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position:absolute;
+            right: 0;
+
+        }
+    </style>
+
+</head>
+
+<body style="height:2000px">
+
+<div id="div1">
+    侧边栏
+</div>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p><p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p><p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p><p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p><p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+<p>sdfdsfsdfsdfdsfdsfdsfdsfdsfs</p>
+
+<script src="js/move.js"></script>
+<script>
+
+    //ie6下用js实现    //ie6以上用fixed定位
+     window.onresize = window.onload = window.onscroll = function(){
+     var oDiv = document.getElementById('div1');
+     //上方滚动条隐藏的区域
+     var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+     //（可视区的高度-div元素的高度）/2 = div块居中需要距离上方的高度
+     var t = (document.documentElement.clientHeight-oDiv.offsetHeight)/2;
+     //上方隐藏区域的高度+页面中div居中距离上方的高度=新的top值（offsetTop）
+     //            oDiv.style.top = scrollTop + t + "px";
+         move('#div1').set('top', scrollTop + t + "px").end();
+     }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+title: "自定义下拉框"
+date: 2015-03-26 22:15:22
+categories: CSS
+tags: [CSS]
+---
+本文将介绍下自定义下拉框的简单做法。
+<!--more-->
+### 前言
+由于最近的项目中需要用到下拉框，但是原生的下拉框实在是不太美观，因此需要自定义下拉框。本来是想着到网上随便下一个就拿着用，但是下了好几个插件都无法满足要求，纠结了好久，于是想着为什么不自己写一个算了。
+
+### 外观样式
+原本想直接将原生的select下拉框的样式给改一下，但是兼容性不太好，并且也不太好看。于是，就用网上大家都使用的方式，用ul来模拟select下拉框。
+html结构如下：
+```html
+<div class="widget-select">
+请选择：
+    <div class="mainCon-selectbox">
+        <input class="selectbox" type="text" value="请选择功能" readonly="readonly" autocomplete="off">
+        <input type="button" value=" " class="selBtn">
+        <div class="selectbox-wrapper">
+            <ul>
+                <!--<li class="">新增图片</li>
+                <li class="">维护图片</li>
+                <li class="">删除图片</li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+```
+用一个input来作为显示框，用button来作为下拉按钮，然后用ul来模拟下拉列表。
+css样式如下：
+```css
+<style>
+        body{
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+            border:0;
+        }
+
+        ul,li{
+           list-style: none;
+        }
+
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .widget-select{
+            margin: 100px auto;
+            width: 300px;
+            font-size: 12px;
+        }
+
+        .mainCon-selectbox{
+            position: relative;
+            z-index: 500;
+            display: inline;
+        }
+
+        .selectbox{
+            width: 167px;
+            min-width: 30px;
+            border: none;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+            vertical-align: middle;
+            border-left: solid 1px #cccccc;
+            border-top: solid 1px #cccccc;
+            border-bottom: solid 1px #cccccc;
+            overflow-y: hidden;
+            padding-left: 4px;
+        }
+
+        .selBtn{
+            width: 22px;
+            height: 24px;
+            background-image: url(images/icons.png);
+            background-position: -499px -106px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            border: 0px;
+            vertical-align: middle;
+
+            border: solid 1px #bdcfde;
+            position: absolute;
+            right: 0px;
+           /* margin-left: -28px;*/
+            padding: 3px 0 6px 0;
+
+        }
+
+        .selectbox-wrapper{
+            display: block;
+            border: #b7d1eb 1px solid;
+            position: absolute;
+            background-color: #fff;
+            text-align: left;
+            z-index: 100;
+            display: block;
+            right: 0px;
+            top: 18px;
+            display: none;
+        }
+
+        div.selectbox-wrapper ul li.selected {
+            background-color: #e0ecf7;
+        }
+
+        div.selectbox-wrapper ul li {
+            padding-right: 3px;
+            padding-left: 3px;
+            padding-bottom: 3px;
+            cursor: pointer;
+            cursor: hand;
+            line-height: 20px;
+            padding-top: 3px;
+            _width: 100%;
+        }
+
+        div.selectbox-wrapper ul li:hover{
+            padding-left : 8px;
+            color: #ffffff;
+            font-weight: bolder;
+            background-color: #3366CC;
+        }
+    </style>
+```
+效果图如下所示：
+![](/image/2015-3/7.jpg "Optional title")
+
+### 交互效果
+1.点击input的时候显示下拉列表
+```javascript
+$(".mainCon-selectbox").click(function(event){
+            $(".selectbox-wrapper ul").html("");
+            var txt = '<li class="selected">请选择功能</li><li class="">新增图片新增图片新增图片新增图片新增图片新增图片新增图片</li><li class="">维护图片</li><li class="">删除图片</li>';
+            $(".selectbox-wrapper ul").append(txt);
+            var olis = $(".selectbox-wrapper ul li");
+            //当前选中的一条高亮
+            olis.each(function(){
+                if($(this).html() == $(".selectbox").val()){
+                    $(this).addClass("selected");
+                }else{
+                    $(this).removeClass("selected");
+                }
+            });
+            $(".selectbox-wrapper").show();
+            event.stopPropagation();
+        })
+```
+2.点击下拉列表将值显示到input中去，且隐藏下拉列表
+```javascript
+$(".selectbox-wrapper").delegate("li","click",function(event){
+            $(".selectbox").val($(this).html());
+            $(".selectbox-wrapper").hide();
+           /* $("this").className="selected";*/
+            event.stopPropagation();
+        }); 
+```
+3.点击input外部，隐藏下拉列表
+```javascript
+//鼠标点击外部，下拉框隐藏
+        $(document).not($(".mainCon-selectbox")).click(function(){
+            $(".selectbox-wrapper").hide();
+        })
+```
+在线实例：[自定义下拉框](/example/2015-3/自定义下拉框/selectInput.html)
+
+### 结语
+之前以为写起来很麻烦，但是实际实现起来却没有多么困难，以后这样的效果最好都自己写一下，一方面比较适用于自己的项目，二方面自己可以多积累一点。

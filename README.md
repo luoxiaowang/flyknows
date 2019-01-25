@@ -5,7 +5,7 @@
 ### [Demo &rarr;](http://kaijun.github.io/hexo-theme-huxblog)
 
 
-![](http://huangxuan.me/img/blog-desktop.jpg)
+![](http://huangxuan.me/image/blog-desktop.jpg)
 
 ## Usage
 
@@ -41,5 +41,5 @@ hexo serve // run hexo in local environment
 hexo clean && hexo deploy // hexo will push the static files automatically into the specific branch(gh-pages) of your repo!
 ```
 
-##### 4.Enjoy! 
+##### 4.Enjoy!
 Please [**Star**](https://github.com/kaijun/hexo-theme-huxblog/stargazers) this Project if you like it! [**Following**](https://github.com/Kaijun) would also be appreciated!
