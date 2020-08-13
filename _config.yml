@@ -137,3 +137,6 @@ deploy:
   type: git
   repo: https://github.com/luoxiaowang/luoxiaowang.github.io.git
   branch: master
+
+admin:
+  deployCommand: './hexo-deploy.sh'
