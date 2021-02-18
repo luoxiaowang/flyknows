@@ -1,12 +1,15 @@
 title: js、css实现文字内容省略
-date: 2014-10-14 23:14:40
-categories: 前端技术
-tags: [前端技术]
+categories:
+  - CSS
+tags:
+  - CSS
+date: 2014-10-14 23:14:00
 ---
 本文主要介绍如何分别通过CSS和js的方式实现，当文字超过一定宽度的时候，出现省略号的效果。
 <!--more-->
 
 ## 1.通过text-overflow实现
+### (1)单行缩略
 ```html
 	#text_overflow_1 {
 		width:200px;
@@ -23,6 +26,23 @@ tags: [前端技术]
 	</div>
 ```
 首先，我们将它的宽度限制在200px，white-space属性首先让文字不换行，然后overflow属性使其超出div宽度的内容隐藏不显示。text-overflow:ellipsis这个属性则可以实现我们所要的效果，在文字的后面加上... , 这种方式兼容主流浏览器，低版本的火狐可能不支持，需要用其他的方式去处理，这里就不说了。
+
+### (2)多行缩略
+```html
+	#text_overflow_2 {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-Webkit-line-clamp: 3;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		word-break: break-all;
+        line-height: 1.5;
+	}
+	
+	<div id="text_overflow_2">
+		这是一段测试文字，文章超出宽度时是否会隐藏多余的文字，这是一段测试文字，文章超出宽度时是否会隐藏多余的文字，这是一段测试文字，文章超出宽度时是否会隐藏多余的文字
+	</div>
+```
 
 ## 2.通过jQuery限制字符字数的方法实现
 ```javascript
